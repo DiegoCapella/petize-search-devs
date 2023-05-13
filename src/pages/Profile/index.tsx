@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { baseURL } from '../../config'
 import { Repository, RepositoryProps } from '../../components/Repository'
+import { CircularProgress } from '@mui/material'
 
 const Container = styled.div`
   background: #e2e8f0;
@@ -29,11 +30,16 @@ const Content = styled.main`
   border-radius: 0.4rem;
 `
 
+const Loading = styled.div`
+  text-align: center;
+`
+
 export function Profile() {
   const { username } = useParams()
 
   const [user, setUser] = useState<SidebarUserProps | null>(null)
   const [repository, setRepository] = useState<[] | null>(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const getUser = async () => {
@@ -47,15 +53,18 @@ export function Profile() {
     getUser()
 
     const getRepository = async () => {
+      setLoading(true)
+
       const response = await fetch(`${baseURL}/users/${username}/repos`)
 
       const data = await response.json()
+
+      setLoading(false)
 
       let orderRepo = data.sort(
         (a: RepositoryProps, b: RepositoryProps) =>
           b.stargazers_count - a.stargazers_count
       )
-      console.log(orderRepo)
 
       orderRepo = orderRepo.slice(0, 6)
 
@@ -72,6 +81,11 @@ export function Profile() {
         <Sidebar {...user!} />
 
         <Content>
+          {loading && (
+            <Loading>
+              <CircularProgress />
+            </Loading>
+          )}
           {repository?.map((repo: RepositoryProps) => (
             <Repository key={repo.name} {...repo} />
           ))}
