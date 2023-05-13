@@ -4,11 +4,12 @@ import { Header } from '../../components/Header'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { baseURL } from '../../config'
+import { Repository, RepositoryProps } from '../../components/Repository'
 
 const Container = styled.div`
   background: #e2e8f0;
   width: 100%;
-  height: calc(100vh);
+  min-height: 100vh;
 `
 
 const Wrapper = styled.div`
@@ -32,6 +33,7 @@ export function Profile() {
   const { username } = useParams()
 
   const [user, setUser] = useState<SidebarUserProps | null>(null)
+  const [repository, setRepository] = useState<[] | null>(null)
 
   useEffect(() => {
     const getUser = async () => {
@@ -39,47 +41,41 @@ export function Profile() {
 
       const data = await response.json()
 
-      const {
-        avatar_url,
-        name,
-        login,
-        bio,
-        email,
-        following,
-        followers,
-        company,
-        blog,
-        location,
-        twitter_username
-      }: SidebarUserProps = data
-
-      const dataUser: SidebarUserProps = {
-        avatar_url,
-        name,
-        login,
-        bio,
-        email,
-        following,
-        followers,
-        company,
-        blog,
-        location,
-        twitter_username
-      }
-
-      setUser(dataUser)
+      setUser(data)
     }
 
     getUser()
+
+    const getRepository = async () => {
+      const response = await fetch(`${baseURL}/users/${username}/repos`)
+
+      const data = await response.json()
+
+      let orderRepo = data.sort(
+        (a: RepositoryProps, b: RepositoryProps) =>
+          b.stargazers_count - a.stargazers_count
+      )
+      console.log(orderRepo)
+
+      orderRepo = orderRepo.slice(0, 6)
+
+      setRepository(orderRepo)
+    }
+
+    getRepository()
   }, [username])
 
   return (
     <Container>
       <Header />
       <Wrapper>
-        <Sidebar {...user} />
+        <Sidebar {...user!} />
 
-        <Content></Content>
+        <Content>
+          {repository?.map((repo: RepositoryProps) => (
+            <Repository key={repo.name} {...repo} />
+          ))}
+        </Content>
       </Wrapper>
     </Container>
   )

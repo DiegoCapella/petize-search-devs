@@ -1,11 +1,13 @@
 import { Grid } from '@mui/material'
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import { styled } from 'styled-components'
+import { Link } from 'react-router-dom'
 
-const Title = styled.h1`
+const Title = styled(Link)`
   font-weight: bold;
   font-size: 2rem;
   color: ${({ theme }) => theme.dark};
+  text-decoration: none;
 `
 
 const TextDescription = styled.p`
@@ -24,11 +26,28 @@ const Details = styled.div`
   }
 `
 
-export function Repository() {
+export type RepositoryProps = {
+  name: string
+  html_url: string
+  description: string
+  stargazers_count: number
+  updated_at: string
+}
+
+export function Repository({
+  name,
+  html_url,
+  description,
+  stargazers_count,
+  updated_at
+}: RepositoryProps) {
+  const date = new Date(updated_at)
+  const dateFormat = new Intl.DateTimeFormat('pt-BR').format(date)
+
   return (
     <Grid
       container
-      direction="row"
+      direction="column"
       justifyContent="space-between"
       gap={1.6}
       style={{
@@ -38,20 +57,16 @@ export function Repository() {
         marginBottom: '1.6rem'
       }}
     >
-      <Title>Repositório nome</Title>
+      <Title to={html_url} target="_blank">
+        {name}
+      </Title>
 
-      <TextDescription>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis
-        molestie, dictum est a, mattis tellus. Sed dignissim, metus nec
-        fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus
-        elit sed risus. Maecenas eget condimentum velit, sit amet feugiat
-        lectus.
-      </TextDescription>
+      <TextDescription>{description}</TextDescription>
 
       <Details>
         <StarOutlineIcon fontSize="large" style={{ color: '#4A5568' }} />{' '}
-        <p>100</p> <span>•</span>
-        <p>Atualizado há 2 dias</p>
+        <p>{stargazers_count}</p> <span>•</span>
+        <p>Atualizado em: {dateFormat}</p>
       </Details>
     </Grid>
   )

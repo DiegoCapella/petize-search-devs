@@ -77,17 +77,17 @@ const LinkItem = styled(Link)`
 `
 
 export type SidebarUserProps = {
-  name?: string
-  avatar_url?: string
-  login?: string
-  bio?: string
-  email?: string
-  followers?: string
-  following?: string
-  company?: string
-  location?: string
-  twitter_username?: string
-  blog?: string
+  name: string
+  avatar_url: string
+  login: string
+  bio: string
+  email: string
+  followers: string
+  following: string
+  company: string
+  location: string
+  twitter_username: string
+  blog: string
 }
 
 export function Sidebar({
