@@ -1,15 +1,11 @@
-import { Container } from '@mui/material'
-import { styled } from 'styled-components'
+import { BrowserRouter } from 'react-router-dom'
 
-const TitleApp = styled.h1`
-  color: ${({ theme }) => theme.purple};
-  text-align: center;
-`
+import { Router } from './router'
 
 export function App() {
   return (
-    <Container>
-      <TitleApp>App</TitleApp>
-    </Container>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   )
 }
