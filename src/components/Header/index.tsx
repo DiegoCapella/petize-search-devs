@@ -1,11 +1,23 @@
-import { Box, Container } from '@mui/material'
+import { Container } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { styled } from 'styled-components'
 
 import img from '../../assets/Search d_evs.png'
+import media from 'styled-media-query'
 
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.white};
+
+  ${media.lessThan('medium')`
+    padding: 0 1rem;
+  `}
+`
+const LogoImg = styled.img`
+  width: 19.4rem;
+
+  ${media.lessThan('medium')`
+    width: 14rem;
+  `}
 `
 
 const BackLink = styled(Link)`
@@ -22,23 +34,25 @@ const BackLink = styled(Link)`
   border-radius: 0.6rem;
   cursor: pointer;
   text-decoration: none;
+
+  ${media.lessThan('medium')`
+    height: 4rem;
+    padding: 0 1rem;
+    font-size: 1.4rem;
+  `}
 `
 
-const LogoImg = styled.img`
-  width: 19.4rem;
+const Box = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `
 
 export function Header() {
   return (
     <Wrapper>
       <Container sx={{ padding: '2rem 0' }}>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}
-        >
+        <Box>
           <LogoImg src={img} />
 
           <BackLink to="/home">Voltar</BackLink>
