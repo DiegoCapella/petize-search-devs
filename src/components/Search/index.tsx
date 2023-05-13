@@ -38,6 +38,13 @@ type SearchProps = {
 
 export function Search({ searchUser }: SearchProps) {
   const [username, setUsername] = useState('')
+
+  const handleKeyDown = (key: string) => {
+    if (key === 'Enter') {
+      searchUser(username)
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -52,6 +59,7 @@ export function Search({ searchUser }: SearchProps) {
         type="text"
         placeholder="Search"
         onChange={(event) => setUsername(event.target.value)}
+        onKeyDown={(event) => handleKeyDown(event.key)}
       />
       <SearchButton onClick={() => searchUser(username)}>Search</SearchButton>
     </Box>
