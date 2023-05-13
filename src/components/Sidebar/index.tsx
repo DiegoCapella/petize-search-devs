@@ -53,7 +53,7 @@ const ItemGroup = styled.div`
   gap: 0.8rem;
 `
 
-const FollowItem = styled.div`
+const ProfileItem = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -126,37 +126,37 @@ export function Sidebar({
         <p>{bio}</p>
 
         <ItemGroup>
-          <FollowItem>
+          <ProfileItem>
             <GroupsIcon />
 
             <p>
               <span>{followers}</span> seguidores
             </p>
-          </FollowItem>
+          </ProfileItem>
 
-          <FollowItem>
+          <ProfileItem>
             <FavoriteBorderIcon />
             <p>
               <span>{following}</span> seguindo
             </p>
-          </FollowItem>
+          </ProfileItem>
         </ItemGroup>
 
         <ItemGroup>
-          <LinkItem to="/">
+          <ProfileItem>
             {company && (
               <>
                 <ApartmentIcon /> <p>{company}</p>
               </>
             )}
-          </LinkItem>
-          <LinkItem to="/">
+          </ProfileItem>
+          <ProfileItem>
             {location && (
               <>
                 <LocationOnOutlinedIcon /> <p>{location}</p>
               </>
             )}
-          </LinkItem>
+          </ProfileItem>
           <LinkItem to="/">
             {email && (
               <>
@@ -164,14 +164,17 @@ export function Sidebar({
               </>
             )}
           </LinkItem>
-          <LinkItem to="/">
+          <LinkItem to={blog} target="_blank">
             {blog && (
               <>
-                <LinkIcon /> <p>{blog}</p>
+                <LinkIcon /> <p style={{ fontSize: '13px' }}>{blog}</p>
               </>
             )}
           </LinkItem>
-          <LinkItem to="/">
+          <LinkItem
+            to={`https://twitter.com/${twitter_username}`}
+            target="_blank"
+          >
             {twitter_username && (
               <>
                 <TwitterIcon /> <p>{twitter_username}</p>
