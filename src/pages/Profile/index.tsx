@@ -1,10 +1,11 @@
 import { styled } from 'styled-components'
 import { Repository } from '../../components/Repository'
+import { Sidebar } from '../../components/Sidebar'
 
 const Container = styled.div`
-  background: #fcfcfc;
+  background: ${({ theme }) => theme['gray-light']};
   width: 100%;
-  height: 100vh - 8rem;
+  height: calc(100vh - 8rem);
 `
 
 const Wrapper = styled.div`
@@ -18,18 +19,24 @@ const Wrapper = styled.div`
   align-items: flex-start;
 `
 
+const Content = styled.main`
+  background: #fff;
+  padding: 2.4rem;
+  border-radius: 0.4rem;
+`
+
 export function Profile() {
   return (
     <Container>
       <Wrapper>
-        <div>Sidebar</div>
+        <Sidebar />
 
-        <main>
+        <Content>
           <Repository />
           <Repository />
           <Repository />
           <Repository />
-        </main>
+        </Content>
       </Wrapper>
     </Container>
   )

@@ -16,5 +16,9 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-size: 1.6rem;
     font-family: 'Inter', sans-serif;
+
+    p {
+      color: ${({ theme }) => theme['gray-dark']};
+    }
   }
 `
