@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import { useState } from 'react'
 import { styled } from 'styled-components'
 
 const SearchButton = styled.button`
@@ -30,7 +31,13 @@ const SearchInput = styled.input`
   }
 `
 
-export function Search() {
+type SearchProps = {
+  // eslint-disable-next-line no-unused-vars
+  searchUser: (username: string) => Promise<void>
+}
+
+export function Search({ searchUser }: SearchProps) {
+  const [username, setUsername] = useState('')
   return (
     <Box
       sx={{
@@ -41,8 +48,12 @@ export function Search() {
         gap: '3.2rem'
       }}
     >
-      <SearchInput type="text" placeholder="Search" />
-      <SearchButton>Search</SearchButton>
+      <SearchInput
+        type="text"
+        placeholder="Search"
+        onChange={(event) => setUsername(event.target.value)}
+      />
+      <SearchButton onClick={() => searchUser(username)}>Search</SearchButton>
     </Box>
   )
 }

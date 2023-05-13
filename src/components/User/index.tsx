@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { styled } from 'styled-components'
+import { UserProps } from '../../pages/Home'
 
 const ProfileButton = styled(Link)`
   display: flex;
@@ -8,7 +9,7 @@ const ProfileButton = styled(Link)`
   justify-content: center;
   width: 100%;
   height: 4.8rem;
-  background: ${({ theme }) => theme.purple};
+  background: ${({ theme }) => theme.blue};
   color: ${({ theme }) => theme.white};
   font-weight: 600;
   font-size: 1.8rem;
@@ -43,7 +44,7 @@ const Avatar = styled.div`
   }
 `
 
-export function User() {
+export function User({ avatar_url, name, login }: UserProps) {
   return (
     <Box
       sx={{
@@ -58,17 +59,14 @@ export function User() {
       }}
     >
       <Avatar>
-        <img
-          src="https://avatars.githubusercontent.com/u/30079414?s=400&u=f84b2b7f557b2307283f40e7f4750bbcec7d0f1f&v=4"
-          alt=""
-        />
+        <img src={avatar_url} />
         <div>
-          <strong>Diego Silva</strong>
-          <span>@diego.silva</span>
+          <strong>{name}</strong>
+          <span>{login}</span>
         </div>
       </Avatar>
 
-      <ProfileButton to="/perfil/DiegoCapella">Ver perfil</ProfileButton>
+      <ProfileButton to={`/perfil/${login}`}>Ver perfil</ProfileButton>
     </Box>
   )
 }
