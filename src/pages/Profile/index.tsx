@@ -1,11 +1,12 @@
 import { styled } from 'styled-components'
 import { Repository } from '../../components/Repository'
 import { Sidebar } from '../../components/Sidebar'
+import { Header } from '../../components/Header'
 
 const Container = styled.div`
-  background: ${({ theme }) => theme['gray-light']};
+  background: #e2e8f0;
   width: 100%;
-  height: calc(100vh - 8rem);
+  height: calc(100vh);
 `
 
 const Wrapper = styled.div`
@@ -28,6 +29,7 @@ const Content = styled.main`
 export function Profile() {
   return (
     <Container>
+      <Header />
       <Wrapper>
         <Sidebar />
 
