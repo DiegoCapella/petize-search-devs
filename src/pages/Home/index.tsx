@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import { Container, Grid } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
+import { styled } from 'styled-components'
+import media from 'styled-media-query'
 
 import img from '../../assets/Search d_evs.png'
 import { Search } from '../../components/Search'
 import { baseURL } from '../../config'
 import { User } from '../../components/User'
+
+const SearchImage = styled.img`
+  ${media.lessThan('medium')`
+      width: 24.0rem;
+  `}
+`
 
 export type UserProps = {
   avatar_url: string
@@ -56,7 +64,7 @@ export function Home() {
         gap={8}
         height="100vh"
       >
-        <img src={img} />
+        <SearchImage src={img} />
         <Search searchUser={getUser} />
 
         {loading && <CircularProgress />}

@@ -1,6 +1,27 @@
-import { Box } from '@mui/material'
 import { useState } from 'react'
 import { styled } from 'styled-components'
+import media from 'styled-media-query'
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 800px;
+  gap: 3.2rem;
+
+  ${media.lessThan('medium')`
+    flex-direction: column;
+    gap: 1rem;
+
+    input {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+    }
+  `}
+`
 
 const SearchButton = styled.button`
   width: 17.6rem;
@@ -46,15 +67,7 @@ export function Search({ searchUser }: SearchProps) {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        maxWidth: '800px',
-        gap: '3.2rem'
-      }}
-    >
+    <Wrapper>
       <SearchInput
         type="text"
         placeholder="Search"
@@ -62,6 +75,6 @@ export function Search({ searchUser }: SearchProps) {
         onKeyDown={(event) => handleKeyDown(event.key)}
       />
       <SearchButton onClick={() => searchUser(username)}>Search</SearchButton>
-    </Box>
+    </Wrapper>
   )
 }
