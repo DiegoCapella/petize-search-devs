@@ -19,7 +19,6 @@ export function Home() {
     const response = await fetch(`${baseURL}/users/${username}`)
 
     const data = await response.json()
-    console.log(data)
 
     const { avatar_url, name, login }: UserProps = data
 

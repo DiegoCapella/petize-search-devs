@@ -76,7 +76,33 @@ const LinkItem = styled(Link)`
   }
 `
 
-export function Sidebar() {
+export type SidebarUserProps = {
+  name?: string
+  avatar_url?: string
+  login?: string
+  bio?: string
+  email?: string
+  followers?: string
+  following?: string
+  company?: string
+  location?: string
+  twitter_username?: string
+  blog?: string
+}
+
+export function Sidebar({
+  avatar_url,
+  name,
+  login,
+  bio,
+  email,
+  following,
+  followers,
+  company,
+  blog,
+  location,
+  twitter_username
+}: SidebarUserProps) {
   return (
     <Box
       sx={{
@@ -90,53 +116,67 @@ export function Sidebar() {
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2.4rem' }}>
         <Avatar>
-          <img
-            src="https://avatars.githubusercontent.com/u/30079414?s=400&u=f84b2b7f557b2307283f40e7f4750bbcec7d0f1f&v=4"
-            alt=""
-          />
+          <img src={avatar_url} />
           <div>
-            <strong>Diego Silva</strong>
-            <span>@diego.silva</span>
+            <strong>{name}</strong>
+            <span>{login}</span>
           </div>
         </Avatar>
 
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-          vulputate libero et velit interdum, ac aliquet odio mattis.
-        </p>
+        <p>{bio}</p>
 
         <ItemGroup>
           <FollowItem>
             <GroupsIcon />
 
             <p>
-              <span>240</span> seguidores
+              <span>{followers}</span> seguidores
             </p>
           </FollowItem>
 
           <FollowItem>
             <FavoriteBorderIcon />
             <p>
-              <span>24</span> seguindo
+              <span>{following}</span> seguindo
             </p>
           </FollowItem>
         </ItemGroup>
 
         <ItemGroup>
           <LinkItem to="/">
-            <ApartmentIcon /> <p>Petize</p>
+            {company && (
+              <>
+                <ApartmentIcon /> <p>{company}</p>
+              </>
+            )}
           </LinkItem>
           <LinkItem to="/">
-            <LocationOnOutlinedIcon /> <p>São Paulo</p>
+            {location && (
+              <>
+                <LocationOnOutlinedIcon /> <p>{location}</p>
+              </>
+            )}
           </LinkItem>
           <LinkItem to="/">
-            <MailOutlinedIcon /> <p>diego@petize.com.br</p>
+            {email && (
+              <>
+                <MailOutlinedIcon /> <p>{email}</p>
+              </>
+            )}
           </LinkItem>
           <LinkItem to="/">
-            <LinkIcon /> <p>www.diegosilva.com.br</p>
+            {blog && (
+              <>
+                <LinkIcon /> <p>{blog}</p>
+              </>
+            )}
           </LinkItem>
           <LinkItem to="/">
-            <TwitterIcon /> <p>@diegosilva</p>
+            {twitter_username && (
+              <>
+                <TwitterIcon /> <p>{twitter_username}</p>
+              </>
+            )}
           </LinkItem>
         </ItemGroup>
       </Box>
