@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { baseURL } from '../../config'
 import { Repository, RepositoryProps } from '../../components/Repository'
 import { CircularProgress } from '@mui/material'
+import media from 'styled-media-query'
 
 const Container = styled.div`
   background: #e2e8f0;
@@ -22,12 +23,17 @@ const Wrapper = styled.div`
   grid-template-columns: 280px 1fr;
   gap: 3.2rem;
   align-items: flex-start;
+
+  ${media.lessThan('medium')`
+    grid-template-columns: 1fr;
+  `}
 `
 
 const Content = styled.main`
   background: #fff;
   padding: 2.4rem;
   border-radius: 0.4rem;
+  margin-bottom: 2rem;
 `
 
 const Loading = styled.div`
